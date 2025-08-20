@@ -1,4 +1,4 @@
-CREATE or REPLACE calculaSAL ()
+CREATE or REPLACE FUNCTION calculaSAL (mes integer)
 RETURNS void as $$
 DECLARE 
     reg record;
@@ -15,8 +15,12 @@ BEGIN
         SET salario = reg.valor_minimo + (reg.aliquota_fixa * reg.preco_venda * reg.qtd_pecas)
         WHERE matricula = reg.matricula;
     
-        RAISE 'Salario Costureira % calulado', %reg.matricula
+        RAISE NOTICE 'Salario Costureira % calulado', reg.matricula;
     END LOOP;
     RETURN;
 END;
 $$ LANGUAGE 'plpgsql';
+
+SELECT calculaSAL(8)
+
+SELECT * from costureira
